@@ -1,4 +1,3 @@
-
 <?php
 
 $stuID = $_POST["id"];
@@ -13,10 +12,10 @@ $sql = "UPDATE employee SET firstname = '{$fname}', lastname = '{$lname}' WHERE 
 // $result = mysqli_query($conn, $sql) or die("SQL query failed");
 
  if(mysqli_query($conn, $sql)){
-    echo "Data Successfully Updated";
+      echo 1;
  }
  else{
-    echo "there is issue in updating the data";
- }
+   echo 0;
+}
 
 ?>

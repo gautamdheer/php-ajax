@@ -75,6 +75,12 @@
         margin-bottom: 20px;
         margin-top: 20px;
     }
+    .top-bar{display:flex;justify-content:center;align-content: center;height:100px}
+    .top-bar h1{margin-right:30px; align-items: center;display:flex;height:100px;}
+    .top-bar div{display:flex;justify-content: center; align-items: center;height:100px; width:400px;}
+    .top-bar input{ width:300px;}
+    
+    
     </style>
 </head>
 
@@ -83,7 +89,10 @@
         <section class="bg-light">
             <div class="container">
                 <div class="row">
+                    <div class="top-bar">
                     <h1>Php Ajax Insert</h1>
+                    <div><lable>Search :- <input placeholder="Search Result...." type="text" name="s" id="search" autocomplete="off"></div>
+                    </div>
                 </div>
         </section>
 
@@ -230,14 +239,32 @@
                     lastname: lname,
                 },
                 success: function(data) {
-                    $("#modal").hide();
-                    $(".wrapper").html(data);
-                    loadTable();
-                         }
+                    if (data == 1) {
+                        $("#modal").hide();
+                        $(".wrapper").html(data);
+                        loadTable();
+                    }
+                }
 
             })
 
         });
+
+        $(document).on("keyup",'#search', function(){
+          let search = $(this).val();
+         
+          $.ajax({
+                url:"ajax-search.php",
+                type:"POST",
+                data:{s:search},
+            success:function(data){
+                $("tbody").html(data);
+            }
+            
+          });
+
+        });
+
     });
     </script>
 </body>
