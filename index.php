@@ -79,7 +79,9 @@
     .top-bar h1{margin-right:30px; align-items: center;display:flex;height:100px;}
     .top-bar div{display:flex;justify-content: center; align-items: center;height:100px; width:400px;}
     .top-bar input{ width:300px;}
-    
+    #pagination{ text-align: center; padding: 10px; display:flex;justify-content: center; width:100%;}
+    #pagination a{ background: #2980b9; color: #fff; text-decoration: none; display: inline-block; padding:5px 10px; margin-right: 5px; border-radius: 3px; }
+    #pagination a.active{ background: #27ae60; }
     
     </style>
 </head>
@@ -128,7 +130,7 @@
                         <tbody>
                         </tbody>
                     </table>
-                </div>
+                   </div>
         </section>
 
     </div>
@@ -250,6 +252,7 @@
 
         });
 
+        // search functionality 
         $(document).on("keyup",'#search', function(){
           let search = $(this).val();
          
@@ -263,6 +266,29 @@
             
           });
 
+        });
+
+        // ajax pagination code from here
+        $(document).ready(function() {
+            function loadTable(page){
+                $.ajax({
+                url: "ajax-pagination.php",
+                type: "POST",
+                data: {page_no :page },
+                success: function(data) {
+                    $("tbody").html(data);
+                }
+                });
+            }
+        loadTable();
+
+        //Pagination Code
+        $(document).on("click","#pagination a",function(e) {
+        e.preventDefault();
+        var page_id = $(this).attr("id");
+
+        loadTable(page_id);
+        })
         });
 
     });
